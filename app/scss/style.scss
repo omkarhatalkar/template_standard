@@ -1,0 +1,15 @@
+/* styles.css */
+
+
+.testing {
+  width: percentage(6/7);
+  background-color: white;   	
+  p {
+  	color: blue;
+  	font-weight: bold;
+  	&:hover {
+  		color: black;
+  		background-color: red;
+  	}
+  }
+}

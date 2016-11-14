@@ -1,23 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>GULP TEMPLATE</title>
-	<!--build:css css/style.min.css-->
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<!--endbuild-->
-</head>
-<body>
+<!doctype html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Angular Registration</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,100,700,900' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/main.css">
 
-	<div class="testing">
-		<p>This is Gulp testing file.</p>
-		<p>One more P tag</p>
-	</div>
-	<!--build:js js/main.min.js -->
-	<script src="js/lib/a-library.js"></script>
-	<script src="js/lib/b-library.js"></script>
-	<script src="js/main.js"></script>
-	<!-- endbuild -->
 
-</body>
+	</head>
+	<body>
+		<header></header>
+		<div class="page" ng-controller="appController">
+	  		<main class="cf">
+	  			{{ message }}
+	  		</main>
+		</div>
+
+
+
+
+
+		<script src="js/lib/angular/angular.min.js"></script>
+		<script src="js/lib/angular/angular-route.min.js"></script>
+		<script src="js/lib/angular/angular-animate.min.js"></script>
+
+		<script src="js/main.js"></script>
+	</body>
 </html>

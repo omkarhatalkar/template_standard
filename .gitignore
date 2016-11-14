@@ -1,6 +1,7 @@
 #this is a comment and .DS_Store is a mac os file which should be ignored always.
 .DS_Store
 node_modules
+bower_components
 
 
 # Compiled source #

@@ -24,7 +24,7 @@ var runSequence = require('run-sequence');
 //------------ TASK ---------------
 //---------------------------------
 gulp.task('sass', function () {
-	return gulp.src('app/scss/**/*.scss')
+	return gulp.src('app/scss/**/*.+(sass|scss)')
 	.pipe(sass())
 	.pipe(gulp.dest('app/css'))
 	.pipe(browserSync.reload({
@@ -83,9 +83,10 @@ gulp.task('browserSync', function () {
 //------------ WATCHED --------------
 //---------------------------------
 gulp.task('watch',['sass', 'browserSync'], function () {
-	gulp.watch('app/scss/**/*.scss', ['sass']);
+	gulp.watch('app/scss/**/*.+(sass|scss)', ['sass']);
 	// Reloads the browser whenever HTML or JS files change
 	gulp.watch('app/*.html', browserSync.reload);
+	// gulp.watch('app/includes/*.html', browserSync.reload);
 	gulp.watch('app/js/**/*.js', browserSync.reload);
 });
 

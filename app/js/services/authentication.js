@@ -15,7 +15,7 @@ myApp.factory('Authentication',
 		};
 	});    
 
-	return {
+	var myObject =  {
 		login: function (user) {
 
 			$rootScope.authObj.$signInWithEmailAndPassword(user.email, user.password)
@@ -27,10 +27,14 @@ myApp.factory('Authentication',
 			});
 		}, // Login
 
-		logout: function (user) {
+		logout: function () {
 			$rootScope.currentUser  = $rootScope.message = '';			
 			return $rootScope.authObj.$signOut();
 		}, // Logout
+
+		requireAuth: function () {			
+        	return $rootScope.authObj.$requireSignIn();
+		},
 
 		register: function (user) {
 			$rootScope.authObj.$createUserWithEmailAndPassword(user.email, user.password)
@@ -42,9 +46,9 @@ myApp.factory('Authentication',
 					lastname: user.lastname,
 					email: user.email
 				}); //user info
+
+				myObject.login(user)
 				
-				$location.path('/success');
-				$rootScope.message = "User " + firebaseUser.uid + " created successfully!";
 	    		// console.log("User " + firebaseUser.uid + " created successfully!");
 			}).catch(function (error) {
 				$rootScope.message = error;
@@ -52,4 +56,6 @@ myApp.factory('Authentication',
 			});
 		} // Register		
 	}; // return
+
+	return myObject;
 }]); // Factory

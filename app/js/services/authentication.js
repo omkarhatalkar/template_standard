@@ -1,10 +1,19 @@
-
 myApp.factory('Authentication', 
-	['$rootScope', '$firebaseAuth', '$location', 
-	function($rootScope, $firebaseAuth, $location){
+	['$rootScope', '$firebaseAuth', '$firebaseObject', '$location', 
+	function($rootScope, $firebaseAuth, $firebaseObject, $location){
 	
 
     $rootScope.authObj = $firebaseAuth();
+
+	$rootScope.authObj.$onAuthStateChanged(function (firebaseUser) {
+		if (firebaseUser) {
+			var userRef = firebase.database().ref('users').child(firebaseUser.uid);
+			var userObj = $firebaseObject(userRef);
+			$rootScope.currentUser = userObj;
+		} else {
+			$rootScope.currentUser = '';
+		};
+	});    
 
 	return {
 		login: function (user) {
@@ -18,6 +27,11 @@ myApp.factory('Authentication',
 			});
 		}, // Login
 
+		logout: function (user) {
+			$rootScope.currentUser  = $rootScope.message = '';			
+			return $rootScope.authObj.$signOut();
+		}, // Logout
+
 		register: function (user) {
 			$rootScope.authObj.$createUserWithEmailAndPassword(user.email, user.password)
 			.then(function (firebaseUser) {
@@ -28,9 +42,10 @@ myApp.factory('Authentication',
 					lastname: user.lastname,
 					email: user.email
 				}); //user info
-
+				
+				$location.path('/success');
 				$rootScope.message = "User " + firebaseUser.uid + " created successfully!";
-	    		console.log("User " + firebaseUser.uid + " created successfully!");
+	    		// console.log("User " + firebaseUser.uid + " created successfully!");
 			}).catch(function (error) {
 				$rootScope.message = error;
 				console.error("Error: ", error);
